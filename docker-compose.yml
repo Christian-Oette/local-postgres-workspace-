@@ -12,6 +12,7 @@ services:
     volumes:
       - ./pgadmin-servers-config.json:/pgadmin4/servers.json
       - ./pgadmin-passwords:/pgadmin4/pgpass:rw
+      - ./config_local.py:/pgadmin4/config_local.py:rw
       - pgadmin_data:/var/lib/pgadmin
       - certificate_data:/certs
     environment:
@@ -19,10 +20,10 @@ services:
       - PGADMIN_DEFAULT_EMAIL=admin@example.com      
       - PGADMIN_DEFAULT_PASSWORD=admin
       - PGADMIN_CONFIG_SERVER_MODE=False
-      - PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED=False
+      - PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED=False      
 
   course-db-postgres:
-    image: postgres:12.11
+    image: postgres:14.5-alpine
     container_name: course-db-postgres    
     restart: always
     networks:
@@ -30,8 +31,7 @@ services:
     ports:
       - 5438:5432
     volumes:
-      - ./database_init.sql:/docker-entrypoint-initdb.d/schema.sql      
-      - pgadmin_data:/pgdata
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql            
     environment:
       - TZ=UTC
       - POSTGRES_USER=admin 
