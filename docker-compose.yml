@@ -1,0 +1,48 @@
+version: '3.8'
+services:
+
+  pgadmin:
+    image: dpage/pgadmin4:6.13
+    container_name: course-pgadmin
+    restart: always
+    networks:
+      - course-network
+    ports:
+      - 8071:80
+    volumes:
+      - ./pgadmin-servers-config.json:/pgadmin4/servers.json
+      - ./pgadmin-passwords:/pgadmin4/pgpass:rw
+      - pgadmin_data:/var/lib/pgadmin
+      - certificate_data:/certs
+    environment:
+      - TZ=Europe/Berlin
+      - PGADMIN_DEFAULT_EMAIL=admin@example.com      
+      - PGADMIN_DEFAULT_PASSWORD=admin
+      - PGADMIN_CONFIG_SERVER_MODE=False
+      - PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED=False
+
+  course-db-postgres:
+    image: postgres:12.11
+    container_name: course-db-postgres    
+    restart: always
+    networks:
+      - course-network
+    ports:
+      - 5438:5432
+    volumes:
+      - ./database_init.sql:/docker-entrypoint-initdb.d/schema.sql      
+      - pgadmin_data:/pgdata
+    environment:
+      - TZ=UTC
+      - POSTGRES_USER=admin 
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=coursedb
+      - POSTGRES_HOST_AUTH_METHOD=trust              
+
+networks:
+  course-network:  
+
+volumes:
+  postgres_data:  
+  pgadmin_data:
+  certificate_data:  

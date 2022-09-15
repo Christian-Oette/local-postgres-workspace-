@@ -1,0 +1,14 @@
+{
+    "Servers": {
+        "coursedb": {
+            "Name": "course-database",
+            "Group": "Servers",
+            "Host": "host.docker.internal",
+            "Port": 5438,
+            "MaintenanceDB": "coursedb",
+            "Username": "admin",        
+            "PassFile": "/pgpass",    
+            "SSLMode": "prefer"
+        }      
+    }
+}
