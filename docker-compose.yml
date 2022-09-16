@@ -10,9 +10,9 @@ services:
     ports:
       - 8071:80
     volumes:
-      - ./pgadmin-servers-config.json:/pgadmin4/servers.json
-      - ./pgadmin-passwords:/pgadmin4/pgpass:rw
-      - ./config_local.py:/pgadmin4/config_local.py:rw
+      - ./config/pgadmin-servers-config.json:/pgadmin4/servers.json
+      - ./config/pgadmin-passwords:/pgadmin4/pgpass:rw
+      - ./config/config_local.py:/pgadmin4/config_local.py:rw
       - pgadmin_data:/var/lib/pgadmin
       - certificate_data:/certs
     environment:
@@ -32,7 +32,7 @@ services:
     ports:
       - 5438:5432
     volumes:
-      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql            
+      - ./config/schema.sql:/docker-entrypoint-initdb.d/schema.sql            
     environment:
       - TZ=UTC
       - POSTGRES_USER=admin 
