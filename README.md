@@ -1,15 +1,15 @@
 # Workspace for PostgreSQL with preconfigured PGAdmin
 
-## Start containers
+## Start or stop containers
 
+### Windows
 ```
-    docker compose up -d
+bash run.sh    
 ```
 
-## Stop containers and delete all volumes
-
+### Linux
 ```
-    docker compose down -v
+/bin/sh run.sh    
 ```
 
 ## PgAdmin
