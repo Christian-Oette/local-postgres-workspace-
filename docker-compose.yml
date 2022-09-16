@@ -21,6 +21,7 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=admin
       - PGADMIN_CONFIG_SERVER_MODE=False
       - PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED=False      
+    profiles: ["all"]
 
   course-db-postgres:
     image: postgres:14.5-alpine
@@ -37,7 +38,8 @@ services:
       - POSTGRES_USER=admin 
       - POSTGRES_PASSWORD=pass
       - POSTGRES_DB=coursedb
-      - POSTGRES_HOST_AUTH_METHOD=trust              
+      - POSTGRES_HOST_AUTH_METHOD=trust   
+    profiles: ["only-db","all"]
 
 networks:
   course-network:  
